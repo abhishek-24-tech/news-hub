@@ -5,7 +5,7 @@ metadata:
   labels:
     app: news-api
 spec:
-  replicas: 2   # number of pods
+  replicas: 2
   selector:
     matchLabels:
       app: news-api
@@ -16,7 +16,14 @@ spec:
     spec:
       containers:
         - name: news-api
-          image: news-api:latest   # replace with DockerHub or local registry image
-          imagePullPolicy: IfNotPresent
+          image: news-api:latest 
+          imagePullPolicy: Never  # change if pushed to DockerHub (e.g. your-dockerhub/news-api:1.0)
           ports:
             - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
